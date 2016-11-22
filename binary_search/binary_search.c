@@ -2,18 +2,24 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include <math.h>
 
-int main();
 void printData(int *, int);
-#define ARRAY_SIZE 19
+void *generateData(int *, int);
+void *generateInorderData(int *, int);
 
 int main() {
-    int data[ARRAY_SIZE] = {0, 4, 8, 9, 14, 21, 24, 36, 37, 38, 39, 42, 48, 58, 61, 63, 67, 78, 99};
-    int data_length = sizeof(data) / sizeof(int);
-    int key;
+
+    // Generate data off of a time seed
+    int seed = time(NULL), data_length = seed % 100, data[data_length], key;
+
+    // generateData(data, data_length);
+    generateInorderData(data, data_length);
+    printData(data, data_length);
+    // bubble sort?
+    // print data
 
     while (1) {
-        printData(data, data_length);
 
         printf("Enter an int to look for: ");
         scanf("%d", &key);
@@ -23,14 +29,6 @@ int main() {
         printf("[iterative]: %s\n", bin_search_iterative_result == 1 ? "found" : "not found");
     }
     return 0;
-}
-
-void printData(int *data, int size) {
-    int x;
-    printf("\n============== DATA ==============\n");
-    for (x = 0; x < size - 1; x++)
-        printf("%d%c", data[x], ((x + 1) % 15 == 0) ? '\n' : ' ');
-    printf("\n==================================\n");
 }
 
 int binary_search_recursive(int *array, int low, int high, int key) {
@@ -101,4 +99,38 @@ int _binary_search_iterative(int *array, int low, int high, int key) {
     // high index to see if we have found our key. Return
     // 1 if we found our key, else return 0
     return (key == array[low] || key == array[high]) ? 1 : 0;
+}
+
+void printData(int *data, int size) {
+    int x;
+    printf("\n================== DATA ==================\n");
+    for (x = 0; x < size; x++)
+        printf("%d%c", data[x], ((x + 1) % 15 == 0) ? '\n' : ' ');
+    printf("\n==========================================\n");
+}
+
+void *generateData(int *data, int length) {
+    int count = 0;
+    while (count < length) {
+        srand(time(NULL) + rand());
+        data[count++] = rand() % 100;
+        ;
+    }
+}
+
+void *generateInorderData(int *data, int length) {
+    int count = 0, divisor = 100;
+    data[0] = abs(data[0] % divisor);
+    printf("boop\n");
+
+    while (count < length) {
+        srand(time(NULL) + rand());
+        int next = abs(rand() % divisor);
+        printf("%d > %d ? \n", next, data[count]);
+        if (next > data[count]) {
+            printf("+ %d\n", next);
+            data[++count] = next;
+        }
+        data[count + 1] = data[count++];
+    }
 }
