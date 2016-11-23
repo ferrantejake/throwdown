@@ -1,22 +1,23 @@
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <math.h>
 
-void printData(int *, int);
-void *generateData(int *, int);
-void *generateInorderData(int *, int);
+void print_data(int *, int);
+void generate_data(int *, int);
+void generateInorderData(int *, int);
+void merge_sort(int *, int, int);
 
 int main() {
 
     // Generate data off of a time seed
     int seed = time(NULL), data_length = seed % 100, data[data_length], key;
 
-    // generateData(data, data_length);
-    generateInorderData(data, data_length);
-    printData(data, data_length);
-    // bubble sort?
+    generate_data(data, data_length);
+    print_data(data, data_length);
+    merge_sort(data, 0, data_length - 1);
+    print_data(data, data_length);
     // print data
 
     while (1) {
@@ -101,7 +102,7 @@ int _binary_search_iterative(int *array, int low, int high, int key) {
     return (key == array[low] || key == array[high]) ? 1 : 0;
 }
 
-void printData(int *data, int size) {
+void print_data(int *data, int size) {
     int x;
     printf("\n================== DATA ==================\n");
     for (x = 0; x < size; x++)
@@ -109,7 +110,7 @@ void printData(int *data, int size) {
     printf("\n==========================================\n");
 }
 
-void *generateData(int *data, int length) {
+void generate_data(int *data, int length) {
     int count = 0;
     while (count < length) {
         srand(time(NULL) + rand());
@@ -118,19 +119,27 @@ void *generateData(int *data, int length) {
     }
 }
 
-void *generateInorderData(int *data, int length) {
-    int count = 0, divisor = 100;
-    data[0] = abs(data[0] % divisor);
-    printf("boop\n");
+void merge_sort(int *array, int low, int high) {
+    printf("[%d]=%d \t[%d]=%d\n", low, array[low], high, array[high]);
+    sleep(1);
+    if (high - low < 2 && array[high] < array[low]) {
+        int temp = array[high];
+        array[high] = array[low];
+        array[low] = array[high];
+        return;
+    }
+    if (high < low) {
+        int mid = (high + low) / 2 + (high + low) % 2;
+        merge_sort(array, low, mid);
+        merge_sort(array, mid + 1, high);
 
-    while (count < length) {
-        srand(time(NULL) + rand());
-        int next = abs(rand() % divisor);
-        printf("%d > %d ? \n", next, data[count]);
-        if (next > data[count]) {
-            printf("+ %d\n", next);
-            data[++count] = next;
-        }
-        data[count + 1] = data[count++];
+        // then
+        int this = low, that = mid + 1;
+        while ()
+        if (array[this] > array[that])
+            int temp = array[that];
+            array[this] = array[that];
+            array[this] = array[that];
+            this++;
     }
 }
