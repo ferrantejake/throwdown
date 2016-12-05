@@ -73,5 +73,17 @@ int main(void) {
     print_cards(cards, quantity);
     UnoCard **card_refs = getCardListAsRefs(myColor, quantity);
     print_ref_cards(card_refs, quantity);
+
+    // #3
+    // Assume that the pointer cards points to the structure allocated by the function in sample question #2.
+    // Assume that the variable quantity stores the length of the array that the pointer cards points to.
+    // Write a segment of code to free all of the associated memory.
+    int x;
+    while (x < quantity)
+        free(card_refs[x++]);
+    free(cards_refs);
+
+    // Also free #1 reference
+    free(cards);
     return 0;
 }
