@@ -20,7 +20,7 @@ int main(int argc, char **argv) {
 
     int length = read_from_file(filename, arr);
     print_array(arr, length);
-    merge_sort_recursive(arr, 0, length - 1);
+    arr = merge_sort_recursive(arr, 0, length - 1);
     print_array(arr, length);
 }
 

@@ -6,7 +6,7 @@ void print_array_substr(int *, int, int);
 // Sorts an array by reference
 int *merge_sort_recursive(int *arr, int low, int high) {
 
-    print_array_substr(arr, low, high);
+    // print_array_substr(arr, low, high);
     // If the difference between high and low locations
     // is less than two, then we are lookingt at adjacent
     // or identical locations, switch as necessary and
@@ -29,13 +29,11 @@ int *merge_sort_recursive(int *arr, int low, int high) {
     //      | 0 | 1 | 2 | 3 | 4 | 6 |
     //      +---+---+---+---+---+---+
     //                    ^ midpoint
-    //      (0 + 7) / 2 + ((7 + 0) % 2) = 4;
 
     //      +---+---+---+---+---+---+---+
     //      | 0 | 1 | 2 | 3 | 4 | 6 | 7 |
     //      +---+---+---+---+---+---+---+
     //                    ^ midpoint
-    //      (0 + 8) / 2 + ((8 + 0) % 2) = 4;
 
     int mid = (high + low) / 2 + (high + low) % 2, i, j = low, k = mid;
     int *temp_arr = malloc(sizeof(int) * (high - low));
@@ -47,21 +45,19 @@ int *merge_sort_recursive(int *arr, int low, int high) {
 
     // merge
     for (i = 0; i < high - low + 1; i++) {
-        if (k == high || (arr[j] < arr[k] && j <= mid - 1)) {
-            printf("temp[%d] = arr[%d] {%d}\n", i, j, arr[j]);
+        if (k > high || (j <= (mid - 1) && arr[j] < arr[k]))
             temp_arr[i] = arr[j++];
-        } else {
-            printf("temp[%d] = arr[%d] {%d}\n", i, k, arr[k]);
+        else
             temp_arr[i] = arr[k++];
-        }
     }
 
     // copy values from temp_arr to arr
-    for (i = 0; i + low < high; i++)
+    for (i = 0; i + low <= high; i++)
         arr[i + low] = temp_arr[i];
 
     return arr;
 
+    // return temp_arr;
 }
 
 void print_array_substr(int *arr, int low, int high) {
