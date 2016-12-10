@@ -6,8 +6,6 @@
 
 void print_data(int *, int);
 void generate_data(int *, int);
-void generateInorderData(int *, int);
-void merge_sort(int *, int, int);
 
 int main() {
 
@@ -116,30 +114,5 @@ void generate_data(int *data, int length) {
         srand(time(NULL) + rand());
         data[count++] = rand() % 100;
         ;
-    }
-}
-
-void merge_sort(int *array, int low, int high) {
-    printf("[%d]=%d \t[%d]=%d\n", low, array[low], high, array[high]);
-    sleep(1);
-    if (high - low < 2 && array[high] < array[low]) {
-        int temp = array[high];
-        array[high] = array[low];
-        array[low] = array[high];
-        return;
-    }
-    if (high < low) {
-        int mid = (high + low) / 2 + (high + low) % 2;
-        merge_sort(array, low, mid);
-        merge_sort(array, mid + 1, high);
-
-        // then
-        int this = low, that = mid + 1;
-        while ()
-        if (array[this] > array[that])
-            int temp = array[that];
-            array[this] = array[that];
-            array[this] = array[that];
-            this++;
     }
 }

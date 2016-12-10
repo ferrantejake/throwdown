@@ -1,4 +1,4 @@
-#include "sorts.h"
+#include "sort.h"
 #include <stdio.h>
 #include <stdlib.h>
 
