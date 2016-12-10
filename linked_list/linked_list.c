@@ -77,6 +77,33 @@ int size(Node *head) {
     return size;
 }
 
+Node *filter_to_every_nth(Node *head, int nth) {
+
+    // return immediately if we were passed a NULL pointer
+    if (head == NULL)
+        return head;
+
+    // Create a new list and a temp for that list, as well
+    // as a temp to iterate through the original list
+    Node *temp = head, *f_head = malloc(sizeof(Node *));
+    f_head->data = head->data;
+    f_head->next = NULL;
+    Node *f_temp = f_head;
+
+    int i;
+    for (i = 0; temp != NULL; i++) {
+        // If the current node qualifies, add it to the new list
+        if (i % nth == 0 && i != 0) {
+            f_temp->next = malloc(sizeof(Node *));
+            f_temp->next->data = temp->data;
+            f_temp->next->next = NULL;
+            f_temp = f_temp->next;
+        }
+        temp = temp->next;
+    }
+    return f_head;
+}
+
 // Prints the linked list
 void print_linked_list(Node *head) {
     Node *temp = head;

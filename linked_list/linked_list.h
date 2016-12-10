@@ -11,7 +11,7 @@ Node *insert_at_loc(Node *head, int loc, int data);
 Node *remove_data(Node *head, int data);
 Node *remove_at_location(Node *head, int loc);
 Node *reverse(Node *head);
-Node *filter_every_nth(Node *, int nth);
+Node *filter_to_every_nth(Node *, int nth);
 Node *filter_above_value(Node *, int value);
 Node *filter_below_value(Node *, int value);
 int contains(Node *head, int data);

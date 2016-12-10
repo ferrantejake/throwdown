@@ -49,8 +49,13 @@ int main(int argc, char **argv) {
     // Reverse and print array
 
     // Filter elements and show new linked list
+    Node* every_third = filter_to_every_nth(head, 3);
+    printf("filtered list (every 3rd node): \n");
+    print_linked_list(every_third);
 
     // Print original linked list
+    printf("original linked list: \n");
+    print_linked_list(head);
 
     return 0;
 }
