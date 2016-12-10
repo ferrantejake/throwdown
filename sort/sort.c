@@ -6,10 +6,9 @@
 // Sorts an array by reference
 // Best Case Runtime:       O(nlogn)
 // Worse Case Runtime:      O(nlogn)
-// Average Case Tuntime:    O(nlogn
+// Average Case Runtime:    O(nlogn
 int *merge_sort(int *arr, int low, int high) {
 
-    // print_array_substr(arr, low, high);
     // If the difference between high and low locations
     // is less than two, then we are lookingt at adjacent
     // or identical locations, switch as necessary and
@@ -79,7 +78,7 @@ int *merge_sort(int *arr, int low, int high) {
 // Sorts an array by reference
 // Best Case Runtime:       O(n^2)
 // Worse Case Runtime:      O(n^2)
-// Average Case Tuntime:    O(n^2)
+// Average Case Runtime:    O(n^2)
 int *bubble_sort(int *arr, int length) {
 
     // In the case that our array is empty or size 1, then we can
