@@ -6,8 +6,11 @@
 int main(int, char **);
 void print_array(int *, int);
 int read_from_file(char *filename, int *);
+void copy_array(int *, int *, int);
 
 int main(int argc, char **argv) {
+
+    // Generate array from input file
     int *arr = malloc(sizeof(int) * 100);
     char *filename;
     if (argc < 2) {
@@ -17,12 +20,34 @@ int main(int argc, char **argv) {
         filename = malloc(sizeof(char) * strlen(argv[1] + 1));
         strcpy(filename, argv[1]);
     }
-
     int length = read_from_file(filename, arr);
+
+    // Create new arrays for each sort
+    int *bubble_arr = malloc(sizeof(int) * length);
+    int *merge_arr = malloc(sizeof(int) * length);
+
+    // Copy array values
+    copy_array(arr, merge_arr, length);
+    copy_array(arr, bubble_arr, length);
+
+    // Show original array
+    printf("original:\t");
     print_array(arr, length);
-    arr = merge_sort_recursive(arr, 0, length - 1);
-    print_array(arr, length);
+
+    // Sort arrays
+    merge_sort(merge_arr, 0, length - 1);
+    bubble_sort(bubble_arr, length);
+
+    // Show sorted arrays
+    printf("merge sort: \t");
+    print_array(merge_arr, length);
+    printf("bubble sort: \t");
+    print_array(bubble_arr, length);
+
+    // Free pointers
     free(arr);
+    free(merge_arr);
+    free(bubble_arr);
     return 0;
 }
 
@@ -51,4 +76,10 @@ void print_array(int *arr, int length) {
             printf(", ");
     }
     printf("]\n");
+}
+
+void copy_array(int *original, int *new, int length) {
+    int i;
+    for (i = 0; i < length; i++)
+        new[i] = original[i];
 }

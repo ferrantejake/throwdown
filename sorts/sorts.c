@@ -2,8 +2,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// Merge Sort
 // Sorts an array by reference
-int *merge_sort_recursive(int *arr, int low, int high) {
+// Best Case Runtime:       O(nlogn)
+// Worse Case Runtime:      O(nlogn)
+// Average Case Tuntime:    O(nlogn
+int *merge_sort(int *arr, int low, int high) {
 
     // print_array_substr(arr, low, high);
     // If the difference between high and low locations
@@ -39,8 +43,8 @@ int *merge_sort_recursive(int *arr, int low, int high) {
 
     // Now we call merge sort on the following sections
     // of the array
-    merge_sort_recursive(arr, low, mid - 1);
-    merge_sort_recursive(arr, mid, high);
+    merge_sort(arr, low, mid - 1);
+    merge_sort(arr, mid, high);
 
     // Increment through arrays and select the value which is
     // the lowest of the two options at each location in the
@@ -69,4 +73,37 @@ int *merge_sort_recursive(int *arr, int low, int high) {
 
     // Free temp array memory
     return arr;
+}
+
+// Bubble Sort
+// Sorts an array by reference
+// Best Case Runtime:       O(n^2)
+// Worse Case Runtime:      O(n^2)
+// Average Case Tuntime:    O(n^2)
+int *bubble_sort(int *arr, int length) {
+
+    // In the case that our array is empty or size 1, then we can
+    // simply return the array without making any changes.
+    if (length < 2)
+        return arr;
+
+    int i, j;
+
+    // Starting at the end of the array, we set a limit to how far
+    // we are allowed to look out. This is because once we've bubbled
+    // an element to the top, there is no need to compare it again, it
+    // is the correct position.
+    for (i = length - 1; i > 0; i--) {
+
+        // We iterate through each element and compare it to the next.
+        for (j = 0; j < i; j++) {
+            // If we find that the current element's value is greater
+            // than the next element's we switch the elements
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
 }
