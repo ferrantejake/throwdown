@@ -18,7 +18,15 @@ Node *create_list_from_array(int *arr, int length) {
 }
 
 // Insert a new node to the end of the linked list
-Node *insert(Node *head, int data) { return head; }
+Node *insert(Node *head, int data) {
+    Node *temp = head;
+    while (temp != NULL)
+        temp = temp->next;
+    temp = malloc(sizeof(Node *));
+    temp->data = data;
+    temp->next = NULL;
+    return head;
+}
 
 // Insert a new node at a specificed location
 Node *insert_at_loc(Node *head, int loc, int data) {
@@ -97,6 +105,34 @@ Node *filter_to_every_nth(Node *head, int nth) {
             f_temp->next = malloc(sizeof(Node *));
             f_temp->next->data = temp->data;
             f_temp->next->next = NULL;
+            f_temp = f_temp->next;
+        }
+        temp = temp->next;
+    }
+    return f_head;
+}
+
+// Returns a new list with all values below a specified value,
+// contained in the original array in their respective order
+// that were contained in the original array that were below
+Node *filter_below_value(Node *head, int value) {
+    Node *f_head = malloc(sizeof(Node *));
+    Node *f_temp = f_head, *temp = head;
+
+    // Scan through to init f_head value
+    while (temp != NULL) {
+        if (temp->data < value) {
+            f_head->data = temp->data;
+            f_head->next = NULL;
+            break;
+        }
+    }
+
+    // Fill in remaining items
+    while (temp != NULL) {
+        if (temp->data < value) {
+            f_temp->next = malloc(sizeof(Node *));
+            f_temp->next->data = temp->data;
             f_temp = f_temp->next;
         }
         temp = temp->next;
