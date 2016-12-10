@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_array_substr(int *, int, int);
 // Sorts an array by reference
 int *merge_sort_recursive(int *arr, int low, int high) {
 
@@ -43,30 +42,31 @@ int *merge_sort_recursive(int *arr, int low, int high) {
     merge_sort_recursive(arr, low, mid - 1);
     merge_sort_recursive(arr, mid, high);
 
-    // merge
+    // Increment through arrays and select the value which is
+    // the lowest of the two options at each location in the
+    // of the array sections. Copy these values in order (as
+    // they were already sorted beforehand) into a new temporary
+    // array which will contain these sections merged, in order.
     for (i = 0; i < high - low + 1; i++) {
+
+        // If the index of the second section is too high, just
+        // fill the temp array with the remaining values from
+        // the lower section. Or, if the lower count does not
+        // exceed the section boundary and the value in the lower
+        // section is less than the value in the upper section,
+        // then place it in the temp array.
         if (k > high || (j <= (mid - 1) && arr[j] < arr[k]))
             temp_arr[i] = arr[j++];
+        // In all other cases add the next upper section value
+        // to the temp array.
         else
             temp_arr[i] = arr[k++];
     }
 
-    // copy values from temp_arr to arr
+    // Copy values from temp array to arr
     for (i = 0; i + low <= high; i++)
         arr[i + low] = temp_arr[i];
 
+    // Free temp array memory
     return arr;
-
-    // return temp_arr;
-}
-
-void print_array_substr(int *arr, int low, int high) {
-    int i = low;
-    printf("[");
-    while (i <= high) {
-        printf("%d", arr[i]);
-        if (i++ != high)
-            printf(", ");
-    }
-    printf("]\n");
 }

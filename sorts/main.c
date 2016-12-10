@@ -11,10 +11,10 @@ int main(int argc, char **argv) {
     int *arr = malloc(sizeof(int) * 100);
     char *filename;
     if (argc < 2) {
-        filename = malloc(sizeof(char) * strlen("input.txt"));
+        filename = malloc(sizeof(char) * strlen("input.txt") + 1);
         strcpy(filename, "input.txt");
     } else {
-        filename = malloc(sizeof(char) * strlen(argv[1]));
+        filename = malloc(sizeof(char) * strlen(argv[1] + 1));
         strcpy(filename, argv[1]);
     }
 
@@ -22,6 +22,8 @@ int main(int argc, char **argv) {
     print_array(arr, length);
     arr = merge_sort_recursive(arr, 0, length - 1);
     print_array(arr, length);
+    free(arr);
+    return 0;
 }
 
 // Reads all integers from a file and returns
