@@ -18,14 +18,24 @@ Node *create_list_from_array(int *arr, int length) {
 }
 
 // Insert a new node to the end of the linked list
-Node *insert(Node *head, int data) {
+Node *insert_at_tail(Node *head, int data) {
+    if (head == NULL)
+        return head;
+
     Node *temp = head;
-    while (temp != NULL)
+    while (temp->next != NULL)
         temp = temp->next;
-    temp = malloc(sizeof(Node *));
-    temp->data = data;
-    temp->next = NULL;
+    temp->next = malloc(sizeof(Node *));
+    temp->next->data = data;
+    temp->next->next = NULL;
     return head;
+}
+
+Node *insert_at_head(Node *head, int data) {
+    Node *new_head = malloc(sizeof(Node *));
+    new_head->data = data;
+    new_head->next = head;
+    return new_head;
 }
 
 // Insert a new node at a specificed location
@@ -150,4 +160,16 @@ void print_linked_list(Node *head) {
         temp = temp->next;
     }
     printf("\n");
+}
+
+Node *reverse_list(Node *head) {
+    Node *temp = head, *cur = head, *last = NULL;
+    while (temp->next != NULL) {
+        temp = temp->next;
+        cur->next = last;
+        last = cur;
+        cur = temp;
+    }
+    temp->next = last;
+    return temp;
 }

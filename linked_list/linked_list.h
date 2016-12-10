@@ -6,11 +6,12 @@ typedef struct Node {
 } Node;
 
 Node *create_list_from_array(int *, int);
-Node *insert(Node *head, int data);
+Node *insert_at_tail(Node *head, int data);
+Node *insert_at_head(Node *head, int);
 Node *insert_at_loc(Node *head, int loc, int data);
 Node *remove_data(Node *head, int data);
 Node *remove_at_location(Node *head, int loc);
-Node *reverse(Node *head);
+Node *reverse_list(Node *head);
 Node *filter_to_every_nth(Node *, int nth);
 Node *filter_above_value(Node *, int value);
 Node *filter_below_value(Node *, int value);
