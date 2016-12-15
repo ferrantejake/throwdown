@@ -109,9 +109,12 @@ int *bubble_sort(int *arr, int length) {
 
 // Insertion Sort
 // Sorts an array by reference
-// Best Case Runtime:       O(n)    when everything is already sorted
-// Worse Case Runtime:      O(n^2)  when the array is in descending order
-// Average Case Runtime:    O(n^2)  average disarray
+// Runtime:
+//  Best Case:       O(n)   when everything is already sorted
+//  Worse Case:      O(n^2) when the array is in descending order
+//  Average Case:    O(n^2) average disarray
+// Space Complexity:
+//  Best/Average/Worst Case: O(n) for any array where n > 0
 int *insertion_sort(int *arr, int size) {
     int i, j, temp;
 
