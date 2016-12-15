@@ -26,11 +26,13 @@ int main(int argc, char **argv) {
     int *bubble_arr = malloc(sizeof(int) * length);
     int *merge_arr = malloc(sizeof(int) * length);
     int *insert_arr = malloc(sizeof(int) * length);
+    int *selection_arr = malloc(sizeof(int) * length);
 
     // Copy array values
     copy_array(arr, merge_arr, length);
     copy_array(arr, bubble_arr, length);
     copy_array(arr, insert_arr, length);
+    copy_array(arr, selection_arr, length);
 
     // Show original array
     printf("original:\t\t");
@@ -40,6 +42,7 @@ int main(int argc, char **argv) {
     merge_sort(merge_arr, 0, length - 1);
     bubble_sort(bubble_arr, length);
     bubble_sort(insert_arr, length);
+    bubble_sort(selection_arr, length);
 
     // Show sorted arrays
     printf("merge sort: \t\t");
@@ -48,6 +51,8 @@ int main(int argc, char **argv) {
     print_array(bubble_arr, length);
     printf("insertion sort: \t");
     print_array(insert_arr, length);
+    printf("selection sort: \t");
+    print_array(selection_arr, length);
 
     // Free pointers
     free(arr);

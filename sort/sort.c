@@ -3,10 +3,14 @@
 #include <stdlib.h>
 
 // Merge Sort
-// Sorts an array by reference
-// Best Case Runtime:       O(nlogn)
-// Worse Case Runtime:      O(nlogn)
-// Average Case Runtime:    O(nlogn
+// - Runtime:
+// Best Case:       O(nlogn)
+// Average Case:    O(nlogn)
+// Worst Case:      O(nlogn)
+// - Space Complexity
+// Best Case:       O(nlogn)
+// Average Case:    O(nlogn)
+// Worst Case:      O(n)
 int *merge_sort(int *arr, int low, int high) {
 
     // If the difference between high and low locations
@@ -76,9 +80,10 @@ int *merge_sort(int *arr, int low, int high) {
 
 // Bubble Sort
 // Sorts an array by reference
-// Best Case Runtime:       O(n^2)
-// Worse Case Runtime:      O(n^2)
-// Average Case Runtime:    O(n^2)
+// - Runtime
+// Best Case:       O(n^2)
+// Average Case:    O(n^2)
+// Worst Case:      O(n^2)
 int *bubble_sort(int *arr, int length) {
 
     // In the case that our array is empty or size 1, then we can
@@ -109,13 +114,18 @@ int *bubble_sort(int *arr, int length) {
 
 // Insertion Sort
 // Sorts an array by reference
-// Runtime:
-//  Best Case:       O(n)   when everything is already sorted
-//  Worse Case:      O(n^2) when the array is in descending order
-//  Average Case:    O(n^2) average disarray
-// Space Complexity:
-//  Best/Average/Worst Case: O(n) for any array where n > 0
+// - Runtime:
+// Best Case:       O(n)   when everything is already sorted
+// Average Case:    O(n^2) average disarray
+// Worst Case:      O(n^2) when the array is in descending order
+// - Space Complexity:
+// Best/Average/Worst Case: O(n) for any array where n > 0
 int *insertion_sort(int *arr, int size) {
+
+    // Return array if the array is null
+    if (arr == NULL)
+        return arr;
+
     int i, j, temp;
 
     // Iterate through all evlements in the array
@@ -141,4 +151,44 @@ int *insertion_sort(int *arr, int size) {
     }
 
     return arr;
+}
+
+// Selection Sort
+// Sorts an array by reference
+// - Runtime:
+// Best/Average/Worst Case: O(n^2) for any array wher n > 0
+// This is because we are still cpomparing the values of all
+// of the elements at locations greater than the current index
+// to the value of at the current index, thus we still compare
+// all values on average to 1/2n other elements. Thus our runtime
+// is O(n^2)
+// - Space Complexity:
+// Best/Average/Worst Case: O(n) for any array where n > 0
+int *selection_sort(int *arr, int size) {
+
+    // Return array if the array is null
+    if (arr == NULL)
+        return arr;
+
+    int i, j, min, temp;
+
+    for (i = 0; i < size; i++) {
+
+        // Select the current element's index as the smallest
+        // seen for this iteration (will swap with itself if
+        // we can't find anything smaller).
+        min = i;
+
+        // Check all of the elements to the right of the
+        // current index for a smaller value.
+        for (j = i + 1; j < size; j++)
+            if (arr[j] < min)
+                min = j;
+
+        // Switch the value at the current index with the value
+        // where we found a smaller value.
+        temp = arr[i];
+        arr[i] = arr[min];
+        arr[min] = arr[i];
+    }
 }
