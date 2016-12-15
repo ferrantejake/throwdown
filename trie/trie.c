@@ -113,7 +113,6 @@ void _printWordsContainingChar(TrieNode *root, char c, char *buffer, int contain
             buffer[depth] = '\0';
         }
     }
-    // Reset buffer tail.
     return;
 }
 
@@ -134,19 +133,13 @@ void _printWordsNotContainingChar(TrieNode *root, char c, char *buffer, int cont
             printf("> %s\n", buffer);
 
     int i;
-    // Check all of the child nodes if they exist and check containsC
-    // if we call a child are looking for.
     for (i = 0; i < 26; i++) {
         if (root->children[i] != NULL) {
-            // Update the buffer to the current character.
             buffer[depth] = i + 'a';
-            // Call down with the current child, buffer, next depth level, and update containsC if available.
             _printWordsNotContainingChar(root->children[i], c, buffer, containsC | (i + 'a' == c ? 1 : 0), depth + 1);
-            // Reset character.
             buffer[depth] = '\0';
         }
     }
-    // Reset buffer tail.
     return;
 }
 
