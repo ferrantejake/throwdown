@@ -3,4 +3,5 @@
 
 int *merge_sort(int *, int, int);
 int *bubble_sort(int *, int);
+int *insertion_sort(int *, int);
 #endif

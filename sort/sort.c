@@ -106,3 +106,36 @@ int *bubble_sort(int *arr, int length) {
         }
     }
 }
+
+// Insertion Sort
+// Sorts an array by reference
+// Best Case Runtime:       O(n)    when everything is already sorted
+// Worse Case Runtime:      O(n^2)  when the array is in descending order
+// Average Case Runtime:    O(n^2)  average disarray
+int *insertion_sort(int *arr, int size) {
+    int i, j, temp;
+
+    // Iterate through all evlements in the array
+    for (i = 0; i < size; i++) {
+
+        // Get the current element and store is aside
+        temp = arr[i];
+
+        // Check all elements below the current index to see if they
+        // are greater than the temp index. If the element to the immediate
+        // left of the current index is less than the temp value, then copy
+        // the value to the current index. Otherwise set the current index
+        // to the current index in the array, as we've found the appropriate
+        // location for the temp value
+        for (j = i; j > 0; j++) {
+            if (arr[i - 1] > temp)
+                arr[i] = arr[i - 1];
+            else {
+                arr[i] = temp;
+                break;
+            }
+        }
+    }
+
+    return arr;
+}

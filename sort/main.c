@@ -25,24 +25,29 @@ int main(int argc, char **argv) {
     // Create new arrays for each sort
     int *bubble_arr = malloc(sizeof(int) * length);
     int *merge_arr = malloc(sizeof(int) * length);
+    int *insert_arr = malloc(sizeof(int) * length);
 
     // Copy array values
     copy_array(arr, merge_arr, length);
     copy_array(arr, bubble_arr, length);
+    copy_array(arr, insert_arr, length);
 
     // Show original array
-    printf("original:\t");
+    printf("original:\t\t");
     print_array(arr, length);
 
     // Sort arrays
     merge_sort(merge_arr, 0, length - 1);
     bubble_sort(bubble_arr, length);
+    bubble_sort(insert_arr, length);
 
     // Show sorted arrays
-    printf("merge sort: \t");
+    printf("merge sort: \t\t");
     print_array(merge_arr, length);
-    printf("bubble sort: \t");
+    printf("bubble sort: \t\t");
     print_array(bubble_arr, length);
+    printf("insertion sort: \t");
+    print_array(insert_arr, length);
 
     // Free pointers
     free(arr);
