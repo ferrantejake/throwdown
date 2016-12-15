@@ -14,9 +14,10 @@ typedef struct TrieNode {
 
 int main();
 TrieNode *insert(TrieNode *, char *);
-void printStringsNotContaining(TrieNode, char);
-void printStringsContainingChar(TrieNode *, char);
-void _printStringsContainingChar(TrieNode *, char, char *, int, int);
+void printWordsNotContainingChar(TrieNode *, char);
+void _printWordsNotContainingChar(TrieNode *, char, char *, int, int);
+void printWordsContainingChar(TrieNode *, char);
+void _printWordsContainingChar(TrieNode *, char, char *, int, int);
 void printStringsContaningSubstring(TrieNode *, char *);
 void printTrie(TrieNode *, int, char *);
 
@@ -76,7 +77,7 @@ void printTrie(TrieNode *root, int level, char *buffer) {
     return;
 }
 
-void printStringsContainingChar(TrieNode *root, char c) {
+void printWordsContainingChar(TrieNode *root, char c) {
     // Note that we indicate a max length of 20 for input strings.
     // Exceeding this length will likely cause a segmentation fault.
     printf("print strings containing: %c\n", c);
@@ -86,11 +87,11 @@ void printStringsContainingChar(TrieNode *root, char c) {
         return;
 
     char *buffer = malloc(sizeof(char) * 20);
-    _printStringsContainingChar(root, c, buffer, 0, 0);
+    _printWordsContainingChar(root, c, buffer, 0, 0);
     return;
 };
 
-void _printStringsContainingChar(TrieNode *root, char c, char *buffer, int containsC, int depth) {
+void _printWordsContainingChar(TrieNode *root, char c, char *buffer, int containsC, int depth) {
     // printf("print_strings_cont: %c %s %d %d > %d\n", c, buffer, containsC, depth, root->count);
 
     // If we found a string, the print the string if that string
@@ -107,7 +108,7 @@ void _printStringsContainingChar(TrieNode *root, char c, char *buffer, int conta
             // Update the buffer to the current character.
             buffer[depth] = i + 'a';
             // Call down with the current child, buffer, next depth level, and update containsC if available.
-            _printStringsContainingChar(root->children[i], c, buffer, containsC | (i + 'a' == c ? 1 : 0), depth + 1);
+            _printWordsContainingChar(root->children[i], c, buffer, containsC | (i + 'a' == c ? 1 : 0), depth + 1);
             // Reset character.
             buffer[depth] = '\0';
         }
@@ -116,7 +117,39 @@ void _printStringsContainingChar(TrieNode *root, char c, char *buffer, int conta
     return;
 }
 
-// void printStringsNotContaining(char c) { return; }
+void printWordsNotContainingChar(TrieNode *root, char c) {
+    printf("print strings not containing: %c\n", c);
+
+    if (root == NULL)
+        return;
+
+    char *buffer = malloc(sizeof(char) * 20);
+    _printWordsNotContainingChar(root, c, buffer, 0, 0);
+    return;
+}
+void _printWordsNotContainingChar(TrieNode *root, char c, char *buffer, int containsC, int depth) {
+
+    if (root->count > 0)
+        if (!containsC)
+            printf("> %s\n", buffer);
+
+    int i;
+    // Check all of the child nodes if they exist and check containsC
+    // if we call a child are looking for.
+    for (i = 0; i < 26; i++) {
+        if (root->children[i] != NULL) {
+            // Update the buffer to the current character.
+            buffer[depth] = i + 'a';
+            // Call down with the current child, buffer, next depth level, and update containsC if available.
+            _printWordsNotContainingChar(root->children[i], c, buffer, containsC | (i + 'a' == c ? 1 : 0), depth + 1);
+            // Reset character.
+            buffer[depth] = '\0';
+        }
+    }
+    // Reset buffer tail.
+    return;
+}
+
 // void printStringsContainingSubstring(char *c) { return; }
 
 int main() {
@@ -133,7 +166,11 @@ int main() {
     insert(root, "Perseus");
     insert(root, "computerscience");
 
-    printStringsContainingChar(root, 's');
+    char c = 'h';
+    printWordsContainingChar(root, c);
+    printWordsNotContainingChar(root, c);
+    printWordsNotContainingChar(root, 'i');
+    printTrie(root, 0, buffer);
     printTrie(root, 0, buffer);
     return 1;
 }
