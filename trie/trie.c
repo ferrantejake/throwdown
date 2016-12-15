@@ -14,6 +14,10 @@ typedef struct TrieNode {
 
 int main();
 TrieNode *insert(TrieNode *, char *);
+void printStringsNotContaining(TrieNode, char);
+void printStringsContainingChar(TrieNode *, char);
+void _printStringsContainingChar(TrieNode *, char, char *, int, int);
+void printStringsContaningSubstring(TrieNode *, char *);
 void printTrie(TrieNode *, int, char *);
 
 // Inserts a string into a trie
@@ -72,6 +76,49 @@ void printTrie(TrieNode *root, int level, char *buffer) {
     return;
 }
 
+void printStringsContainingChar(TrieNode *root, char c) {
+    // Note that we indicate a max length of 20 for input strings.
+    // Exceeding this length will likely cause a segmentation fault.
+    printf("print strings containing: %c\n", c);
+
+    // Return immediately if root is null.
+    if (root == NULL)
+        return;
+
+    char *buffer = malloc(sizeof(char) * 20);
+    _printStringsContainingChar(root, c, buffer, 0, 0);
+    return;
+};
+
+void _printStringsContainingChar(TrieNode *root, char c, char *buffer, int containsC, int depth) {
+    // printf("print_strings_cont: %c %s %d %d > %d\n", c, buffer, containsC, depth, root->count);
+
+    // If we found a string, the print the string if that string
+    // contains the character we are looking for.
+    if (root->count > 0)
+        if (containsC)
+            printf("> %s\n", buffer);
+
+    int i;
+    // Check all of the child nodes if they exist and check containsC
+    // if we call a child are looking for.
+    for (i = 0; i < 26; i++) {
+        if (root->children[i] != NULL) {
+            // Update the buffer to the current character.
+            buffer[depth] = i + 'a';
+            // Call down with the current child, buffer, next depth level, and update containsC if available.
+            _printStringsContainingChar(root->children[i], c, buffer, containsC | (i + 'a' == c ? 1 : 0), depth + 1);
+            // Reset character.
+            buffer[depth] = '\0';
+        }
+    }
+    // Reset buffer tail.
+    return;
+}
+
+// void printStringsNotContaining(char c) { return; }
+// void printStringsContainingSubstring(char *c) { return; }
+
 int main() {
     char buffer[20];
     struct TrieNode *root;
@@ -86,6 +133,7 @@ int main() {
     insert(root, "Perseus");
     insert(root, "computerscience");
 
+    printStringsContainingChar(root, 's');
     printTrie(root, 0, buffer);
     return 1;
 }
